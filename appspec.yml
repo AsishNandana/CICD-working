@@ -1,31 +1,17 @@
 version: 0.0
 os: linux
 files:
-  - source: /index.html        # Path to the WAR file in your source (GitHub or S3)
-    destination: /var/www/html/  # Destination where Tomcat looks for WAR files
-
+  - source: /index.html
+    destination: /var/www/html/
 hooks:
   BeforeInstall:
-    - location: scripts/install_dependencies.sh  # Custom script for installing dependencies, if needed
+    - location: install_dependencies
       timeout: 300
       runas: root
-    - location: scripts/stop_server.sh        # Script to stop Tomcat before deploying
+    - location: start_server
       timeout: 300
       runas: root
-
-  AfterInstall:
-    - location: scripts/start_server.sh      # Script to start Tomcat after deployment
-      timeout: 300
-      runas: root
-
   ApplicationStop:
-    - location: scripts/stop_server.sh      # Ensure Tomcat is stopped before deployment (can be a duplicate of BeforeInstall)
+    - location: stop_server
       timeout: 300
       runas: root
-
-  ApplicationStart:
-    - location: scripts/start_server.sh    # Ensure Tomcat is started after deployment (can be a duplicate of AfterInstall)
-      timeout: 300
-      runas: root
-
-
