@@ -1,8 +1,8 @@
 version: 0.0
 os: linux
 files:
-  - source: scripts/sample.war         # Path to the WAR file in your source (GitHub or S3)
-    destination: /home/ec2-user/tomcat/webapps/  # Destination where Tomcat looks for WAR files
+  - source: /index.html        # Path to the WAR file in your source (GitHub or S3)
+    destination: /var/www/html/  # Destination where Tomcat looks for WAR files
 
 hooks:
   BeforeInstall:
