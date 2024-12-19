@@ -1,19 +1,5 @@
 #!/bin/bash
-
-# Check if httpd process is running
-isExistApp=$(ps aux | grep httpd | grep -v grep)
-
-
-if [[ -n $isExistApp ]]; then
-    echo "Stopping httpd service..."
-    # Use systemctl instead of service for modern systems
-    systemctl stop httpd
-    if [[ $? -eq 0 ]]; then
-        echo "httpd service stopped successfully."
-    else
-        echo "Failed to stop httpd service."
-        exit 1
-    fi
-else
-    echo "httpd service is not running."
+isExistApp = `pgrep httpd`
+if [[ -n  $isExistApp ]]; then
+    service httpd stop        
 fi
